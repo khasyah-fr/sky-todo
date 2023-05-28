@@ -1,0 +1,243 @@
+definitions:
+  entities.CreateActivityRequest:
+    properties:
+      email:
+        type: string
+      title:
+        type: string
+    type: object
+  entities.CreateTodoRequest:
+    properties:
+      activity_group_id:
+        type: integer
+      is_active:
+        type: boolean
+      priority:
+        type: string
+      title:
+        type: string
+    type: object
+  entities.GetActivityResponse:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  entities.GetTodoResponse:
+    properties:
+      activity_group_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      priority:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  entities.UpdateActivityRequest:
+    properties:
+      title:
+        type: string
+    type: object
+  entities.UpdateTodoRequest:
+    properties:
+      is_active:
+        type: boolean
+      priority:
+        type: string
+      status:
+        type: string
+      title:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /activities:
+    get:
+      description: Retrieves all activities
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.GetActivityResponse'
+            type: array
+      summary: Get all activities
+    post:
+      consumes:
+      - application/json
+      description: Creates a new activity
+      parameters:
+      - description: Activity object
+        in: body
+        name: activity
+        required: true
+        schema:
+          $ref: '#/definitions/entities.CreateActivityRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/entities.GetActivityResponse'
+      summary: Create an activity
+  /activities/{id}:
+    delete:
+      description: Deletes an activity by ID
+      parameters:
+      - description: Activity ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete an activity
+    get:
+      description: Retrieves a specific activity by ID
+      parameters:
+      - description: Activity ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.GetActivityResponse'
+      summary: Get an activity
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing activity
+      parameters:
+      - description: Activity ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Updated activity object
+        in: body
+        name: activity
+        required: true
+        schema:
+          $ref: '#/definitions/entities.UpdateActivityRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.GetActivityResponse'
+      summary: Update an activity
+  /todos:
+    get:
+      description: Retrieves all todos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.GetTodoResponse'
+            type: array
+      summary: Get all todos
+    post:
+      consumes:
+      - application/json
+      description: Creates a new todo
+      parameters:
+      - description: Todo object
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/entities.CreateTodoRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/entities.GetTodoResponse'
+      summary: Create a todo
+  /todos/{id}:
+    delete:
+      description: Deletes a todo by ID
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete a todo
+    get:
+      description: Retrieves a specific todo by ID
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.GetTodoResponse'
+      summary: Get a todo
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing todo
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Updated todo object
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/entities.UpdateTodoRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.GetTodoResponse'
+      summary: Update a todo
+swagger: "2.0"
